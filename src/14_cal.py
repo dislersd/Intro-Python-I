@@ -10,24 +10,16 @@ and does the following:
    print the calendar for the current month. The 'datetime'
    module may be helpful for this.
 
-    Need to capture input
-
  - If the user specifies one argument, assume they passed in a
    month and render the calendar for that month of the current year.
-
-
 
  - If the user specifies two arguments, assume they passed in
    both the month and the year. Render the calendar for that 
    month and year.
 
-
-
  - Otherwise, print a usage statement to the terminal indicating
    the format that your program expects arguments to be given.
    Then exit the program.
-
-
 """
 
 import sys
@@ -35,9 +27,18 @@ import calendar
 from datetime import datetime
 
 
-# collect the input
+def render(month, year):
+    month = calendar.TextCalendar().formatmonth(year, month)
+    print(month)
 
-# if there are no args:
-    # do something
-# if there is one arg:
-    # do something
+
+num_args = len(sys.argv)
+if num_args == 1:
+    now = datetime.now()
+    render(now.month, now.year)
+elif num_args == 2:
+    render(int(sys.argv[1]), datetime.now().year)
+elif num_args == 3:
+    render(int(sys.argv[1]), int(sys.argv[2]))
+else:
+    print('Usage:\n\tcalendar.py month [year]')
